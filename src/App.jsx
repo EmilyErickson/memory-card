@@ -46,11 +46,16 @@ function App() {
 ])
 
 function handleClick(card) {
-  console.log(card)
+  // console.log(card)
   if(card.clicked === true) {
-      alert("clicked")
+    updateHighScore()
+    resetScore()
+    alert("clicked")
+    return
   }
   card.clicked = true
+  updateScore()
+  // getHighestScore()
   shuffleCards()
 }
 
@@ -63,12 +68,33 @@ function shuffleCards() {
   setCardArray(shuffledCards);
 }
 
+// Scoreboard
 
+const [currentScore, setCurrentScore] = useState(0)
+const [highestScore, setHighestScore] = useState(0)
+
+function updateScore() {
+  let newScore = currentScore + 1
+  setCurrentScore(newScore)
+  updateHighScore(newScore)
+}
+
+function updateHighScore(score) {
+  if(highestScore < score) {
+    let newHighScore = score
+    setHighestScore(newHighScore)
+  }
+}
+
+function resetScore() {
+  let resetScore = 0
+  setCurrentScore(resetScore)
+}
 
   return (
     <>
     <h2>Memory Card</h2>
-    <Scoreboard />
+    <Scoreboard currentScore={currentScore} highestScore={highestScore}/>
     <RandomCards cardArray={cardArray} handleClick={handleClick}/>
     </>
   )
