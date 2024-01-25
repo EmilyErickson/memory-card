@@ -1,34 +1,75 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import RandomCards from './cards'
+import Scoreboard from './scoreboard'
+import { v4 as uuidv4 } from 'uuid';
+
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  // Take some time to think about the features you want to implement, which components you need, how to structure your application,
+  //  and how to get the images from an API. Your application should include a scoreboard, which counts the current score, 
+  //  and a “Best Score”, which shows the highest score you’ve achieved thus far. There should be a function that displays the cards
+  //   in a random order anytime a user clicks one. Be sure to invoke that function when the component mounts.
+
+
+  //  component that displays images - function that gets 12 images from lorem ipsum api
+  //  function that shuffles images each click - run function when component mounts
+  // component that returns scoreboard - function that counts current score, function that shows highest score so far.
+  // 
+
+  // function handleClick(card) {
+  //     if(card.clicked === true) {
+  //         alert("clicked")
+  //     }
+  //     card.clicked = true
+  //     console.log(card)
+  //     shuffleCards()
+  // }
+
+  const [cardArray, setCardArray] = useState([
+    {key: uuidv4(), cardNumber: 1, clicked: false},
+    {key: uuidv4(), cardNumber: 2, clicked: false},
+    {key: uuidv4(), cardNumber: 3, clicked: false},
+    {key: uuidv4(), cardNumber: 4, clicked: false},
+    {key: uuidv4(), cardNumber: 5, clicked: false},
+    {key: uuidv4(), cardNumber: 6, clicked: false},
+    {key: uuidv4(), cardNumber: 7, clicked: false},
+    {key: uuidv4(), cardNumber: 8, clicked: false},
+    {key: uuidv4(), cardNumber: 9, clicked: false},
+    {key: uuidv4(), cardNumber: 10, clicked: false},
+    {key: uuidv4(), cardNumber: 11, clicked: false},
+    {key: uuidv4(), cardNumber: 12, clicked: false},
+    {key: uuidv4(), cardNumber: 13, clicked: false},
+    {key: uuidv4(), cardNumber: 14, clicked: false},
+    {key: uuidv4(), cardNumber: 15, clicked: false},
+])
+
+function handleClick(card) {
+  console.log(card)
+  if(card.clicked === true) {
+      alert("clicked")
+  }
+  card.clicked = true
+  shuffleCards()
+}
+
+function shuffleCards() {
+  const shuffledCards = [...cardArray];
+  for (let i = shuffledCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledCards[i], shuffledCards[j]] = [shuffledCards[j], shuffledCards[i]];
+  }
+  setCardArray(shuffledCards);
+}
+
+
 
   return (
     <>
-      <div>
-        {/* This is just a test */}
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <h2>Memory Card</h2>
+    <Scoreboard />
+    <RandomCards cardArray={cardArray} handleClick={handleClick}/>
     </>
   )
 }
