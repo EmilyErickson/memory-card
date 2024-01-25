@@ -7,11 +7,12 @@ export default function Scoreboard({currentScore, highestScore}) {
         currentScore: PropTypes.number.isRequired,
         highestScore: PropTypes.number.isRequired,
     }
+
     return (
-    <div>
-        <h4>Scoreboard</h4>
-        <span>Current Score: {currentScore}</span>
-        <span>Highest Score: {highestScore}</span>
+    <div className='scoreboard'>
+        <h3 className='scoreboard-title'>Scoreboard</h3>
+        <span className='score current-score'>Current Score: {currentScore}</span>
+        <span className='score high-score'>Highest Score: {highestScore}</span>
     </div>
     )
 }
