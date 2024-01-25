@@ -1,11 +1,12 @@
 import './index.css'
 import PropTypes from 'prop-types';
 
-export default function RandomCards({cardArray, handleClick}) {
+export default function RandomCards({cardArray, handleClick, gameMessage}) {
 
     RandomCards.propTypes = {
         cardArray: PropTypes.array.isRequired,
-        handleClick: PropTypes.func.isRequired
+        handleClick: PropTypes.func.isRequired,
+        gameMessage: PropTypes.string.isRequired
     }
 
 
@@ -26,6 +27,7 @@ return (
                 <Card cardNumber={card.cardNumber}/>
             </div>
         ))}
+        <div className={gameMessage}><h2>You Win!</h2><span>Reload page to play again</span></div>
     </div>
 )
 }
